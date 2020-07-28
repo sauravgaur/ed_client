@@ -1,0 +1,229 @@
+<div class="">
+    <!-- <div class="breadcrumb">
+        <h1>Version 1</h1>
+        <ul>
+            <li><a href="">Dashboard</a></li>
+            <li>Version 1</li>
+        </ul>
+    </div>
+
+    <div class="separator-breadcrumb border-top"></div> -->
+
+    <div class="row">
+        <!-- ICON BG -->
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                <div class="content ml-2" style="max-width: none">
+                    <p class="text-muted mt-2 mb-2" class="dashboard_header_title">Total patients Reported </p>
+                    <p class="header_sub_title">(last 7 days)</p>
+                </div>
+                <div class="card-body dashboard_header">
+                    <!-- <i class="i-Add-User"></i> -->
+                    <img src="../../../../assets/icons/patient-list-top.png" height="70px">
+                    <div class="content ml-2" style="max-width: none; margin-top: 45px;">
+                        <!-- <p class="text-muted mt-2 mb-2" class="dashboard_header_title">Total patients (last 7 days)</p> -->
+                        <p class="text-primary text-24 line-height-1 m-0 header_count">{{weeklyCount}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                
+                <div class="content ml-2" style="max-width: none">
+                    <p class="text-muted mt-2 mb-2" class="dashboard_header_title">Patient Revisits in last 3 months</p>
+                </div>
+                <div class="card-body dashboard_header">
+                    <!-- <i class="i-Add-User"></i> -->
+                    <img src="../../../../assets/icons/revis.png" height="70px">
+                    <div class="content ml-2" style="max-width: none; margin-top: 45px;">
+                        <!-- <p class="text-muted mt-2 mb-2" class="dashboard_header_title">Total patients (last 7 days)</p> -->
+                        <p class="text-primary text-24 line-height-1 m-0 header_count">{{pastMonthCount}}</p>
+                    </div>
+                </div>
+
+                <!-- <div class="card-body">
+                    <img src="../../../../assets/icons/revis.png">
+                    <div class="content ml-2" style="max-width: none">
+                        <p class="text-muted mt-2 mb-0" class="dashboard_header_title">Patient Revisits in last 3 months</p>
+                        <p class="text-primary text-24 line-height-1 mb-2">{{pastMonthCount}}</p>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                <div class="content ml-2" style="max-width: none">
+                    <p class="text-muted mt-2 mb-2" class="dashboard_header_title">Total no. of Feeds Received</p>
+                    <p class="header_sub_title">(last 7 days)</p>
+                </div>
+                <div class="card-body dashboard_header">
+                    <!-- <i class="i-Add-User"></i> -->
+                    <img src="../../../../assets/icons/patient-visited.png" height="70px">
+                    <div class="content ml-2" style="max-width: none; margin-top: 45px;">
+                        <!-- <p class="text-muted mt-2 mb-2" class="dashboard_header_title">Total patients (last 7 days)</p> -->
+                        <p class="text-primary text-24 line-height-1 m-0 header_count">{{last7DaysFeedCnt}}</p>
+                    </div>
+                </div>
+                <!-- <div class="card-body">
+                    <img src="../../../../assets/icons/patient-visited.png">
+                    <div class="content ml-2" style="max-width: none">
+                        <p class="text-muted mt-2 mb-0" class="dashboard_header_title">Total Feeds (last 7 days) </p>
+                        <p class="text-primary text-24 line-height-1 mb-2">{{last7DaysFeedCnt}}</p>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-6" [tooltip]="lastNote?.note" placement="bottom" containerClass="tooltipClass">
+            <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                <div class="card-body">
+                    <!-- <img src="../../../../assets/icons/avarge.png"> -->
+                    <div class="content ml-2" style="max-width: none">
+                        <p class="text-muted mt-2 mb-0 dashboard_header_title" style="margin-top: -5px !important; color: #47404f !important">Last Patient Reported</p>
+                        <p class="text-primary text-24 line-height-1 mb-2">{{lastNote?.pid_patient_name | titlecase}}</p>
+                        <div class="row" style="font-size: 13px; color: gray">
+                            <div class="col-lg-6" style="padding: 0px 0px 0px 15px;">{{lastNote?.updateddate | date: 'yyyy-MM-dd'}}</div>
+                            <div class="col-lg-6" style="width: 100px; padding: unset; text-align: right;">{{lastNote?.user_name}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 col-md-12">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="card-title">No. of Patients - Month</div>
+                    <div echarts [options]="monthlyChartBar" [autoResize]="true" style="height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-12">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="card-title">Most visited facility</div>
+                    <div echarts [options]="salesChartPie" [autoResize]="true" style="height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 col-md-12">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="card-title">No. of Patients - Day</div>
+                    <div echarts [options]="dailyChartBar" [autoResize]="true" style="height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-12">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="card-title">Most visited insurance company</div>
+                    <div echarts [options]="insuranceChartPie" [autoResize]="true" style="height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input id="email" placeholder="Search patient" [formControl]="searchControl"
+                    (input)="dt.filterGlobal($event.target.value, 'contains')" class="form-control form-control-rounded"
+                    type="email">
+            </div>
+        </div>
+        <div class="col-md-6"><span style="font-size: 20px;">Today's Feed List</span></div>
+        <div class="col-md-12">
+            <div class="card  o-hidden">
+                <!-- <p-table #dt [columns]="cols" [value]="products" styleClass="filterTable" [paginator]="true" [rows]="10"
+                    [loading]="showLoading"  [scrollable]="true"  [responsive]="true" [style]="{width: auto}">
+                    <ng-template pTemplate="colgroup" let-columns>
+                        <colgroup>
+                            <col *ngFor="let col of columns" [style.width]="col.width">
+                        </colgroup>
+                    </ng-template>>
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th *ngFor="let col of columns" [pSortableColumn]="col.field" style="border: none;">
+                                {{col.header}}
+                                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                                <input pInputText type="text" size="15"
+                                    (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                        <tr>
+                            <td *ngFor="let col of columns">
+                                <span class="ui-column-title">{{col.header}}</span>
+                                {{rowData[col.field]}}
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr *ngIf="!showLoading">
+                            <td class="noRecordFound" [attr.colspan]="columns.length">
+                                No records found
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table> -->
+                <p-treeTable #tt [value]="files" styleClass="treeTable" [loading]="loading" [columns]="treeCols"
+                    [paginator]="true" [rows]="10"  (onNodeExpand)="onNodeExpand($event)" [scrollable]="true" [style]="{width: auto}"
+                    >
+                    <ng-template pTemplate="colgroup" let-columns>
+                        <colgroup>
+                            <col *ngFor="let col of columns" [style.width]="col.width">
+                        </colgroup>
+                    </ng-template>
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th style="border: none">Patient Id</th>
+                            <th style="border: none;">Patient Name</th>
+                            <th style="border: none;">Event Date</th>
+                            <th style="border: none;">Event Type</th>
+                            <th style="border: none;">ED Facility</th>
+                            <th style="border: none;">Provider Name</th>
+                            <!-- <th style="border: none;">Note</th> -->
+                        </tr>
+                        <!-- <tr>
+                            <th *ngFor="let col of columns">
+                                {{col.header}}
+                            </th>
+                        </tr> -->
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                        <tr>
+                            <td *ngFor="let col of columns; let i = index">
+                                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                                {{rowData[col.field]}}
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr *ngIf="!showLoading">
+                            <td class="noRecordFound"  [attr.colspan]="columns.length">
+                                No records found
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-treeTable>
+            </div>
+        </div>
+    </div>
+</div>

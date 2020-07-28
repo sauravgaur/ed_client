@@ -1,0 +1,169 @@
+<div class="">
+    <div class="breadcrumb">
+        <h1>User's Profiles</h1>
+        <!-- <ul>
+            <li><a href="#">Data Table</a></li>
+            <li>Filter</li>
+          </ul> -->
+    </div>
+
+    <div class="separator-breadcrumb border-top"></div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input id="email" placeholder="Filter User" [formControl]="searchControl"
+                    class="form-control form-control-rounded" type="email">
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card  o-hidden">
+                <p-table #dt [columns]="cols" [value]="userList" styleClass="filterTable" [paginator]="true" [rows]="10"
+                    [loading]="showLoading" [scrollable]="true"
+                    [style]="{width: auto}" (onEditComplete)="updateValue($event)">
+                    <ng-template pTemplate="colgroup" let-columns>
+                        <colgroup>
+                            <col *ngFor="let col of columns" [style.width]="col.width">
+                        </colgroup>
+                    </ng-template>
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th *ngFor="let col of columns" [pSortableColumn]="col.field" style="border: none;">
+                                {{col.header}}
+                                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                                <input pInputText type="text" size="15"
+                                    (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                        <tr [pEditableRow]="rowData">
+                            <td>
+                                {{rowData.user_name}}
+                            </td>
+                            <td [pEditableColumn]="rowData" [pEditableColumnField]="'firstname'">
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                            <input type="text" pInputText [(ngModel)]="rowData.first_name"/>
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        {{rowData.first_name}}
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                            <td [pEditableColumn]="rowData" [pEditableColumnField]="'lastname'">
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <input type="text" pInputText [(ngModel)]="rowData.last_name"/>
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        {{rowData.last_name}}
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                            <td [pEditableColumn]="rowData" [pEditableColumnField]="'phone'">
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <input type="text" pInputText [(ngModel)]="rowData.phone"/>
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        {{rowData.phone}}
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                            <td [pEditableColumn]="rowData" [pEditableColumnField]="'address1'">
+                                    <p-cellEditor>
+                                        <ng-template pTemplate="input">
+                                            <textarea cols="40" rows="3" pInputTextarea [(ngModel)]="rowData.address1"></textarea>
+                                        </ng-template>
+                                        <ng-template pTemplate="output">
+                                            {{rowData.address1}}
+                                        </ng-template>
+                                    </p-cellEditor>
+                                </td>
+                            <td>
+                                {{rowData.email}}
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr *ngIf="!showLoading">
+                            <td class="noRecordFound" [attr.colspan]="columns.length">
+                                No records found
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+        <!-- <div class="col-md-12">
+            <div class="card  o-hidden">
+                <ngx-datatable #mydatatable
+                    class="material fullscreen"
+                    [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'"
+                    [rows]="filteredProducts" [scrollbarH]="false">
+                    <ngx-datatable-column name="username">
+                        <ng-template ngx-datatable-cell-template let-value="value">
+                            {{value}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="firstname">
+                        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value"
+                            let-row="row">
+                            <span title="Double click to edit" (dblclick)="editing[rowIndex + '-firstname'] = true"
+                                *ngIf="!editing[rowIndex + '-firstname']">
+                                {{value}}
+                            </span>
+                            <input autofocus (blur)="updateValue($event, 'firstname', rowIndex)"
+                                *ngIf="editing[rowIndex+ '-firstname']" type="text" [value]="value" />
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="lastname">
+                        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value"
+                            let-row="row">
+                            <span title="Click to edit" (click)="editing[rowIndex + '-lastname'] = true"
+                                *ngIf="!editing[rowIndex + '-lastname']">
+                                {{value}}
+                            </span>
+                            <input autofocus (blur)="updateValue($event, 'lastname', rowIndex)"
+                                *ngIf="editing[rowIndex+ '-lastname']" type="text" [value]="value" />
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="phone">
+                        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value"
+                            let-row="row">
+                            <span title="Click to edit" (click)="editing[rowIndex + '-phone'] = true"
+                                *ngIf="!editing[rowIndex + '-phone']">
+                                {{value}}
+                            </span>
+                            <input autofocus (blur)="updateValue($event, 'phone', rowIndex)"
+                                *ngIf="editing[rowIndex+ '-phone']" type="text" [value]="value" />
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="address1" [width]="220">
+                        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value"
+                            let-row="row">
+                            <span title="Click to edit" (click)="editing[rowIndex + '-address1'] = true"
+                                *ngIf="!editing[rowIndex + '-address1']">
+                                {{value}}
+                            </span>
+                            <textarea rows="3" cols="30" autofocus (blur)="updateValue($event, 'address1', rowIndex)"
+                                *ngIf="editing[rowIndex+ '-address1']" [value]="value"></textarea>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="email">
+                        <ng-template ngx-datatable-cell-template let-value="value">
+                            {{value}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </div>
+        </div> -->
+    </div>
+</div>

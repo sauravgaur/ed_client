@@ -1,0 +1,265 @@
+<div class="">
+    <div class="breadcrumb">
+        <h1>DB Settings</h1>
+        <!-- <ul>
+        <li><a href="#">Data Table</a></li>
+        <li>Filter</li>
+      </ul> -->
+    </div>
+
+    <div class="separator-breadcrumb border-top"></div>
+
+    <div class="row">
+        <div class="col-md-5">
+            <h4 style="color: green; font-weight: bold">Primary Database</h4>
+            <div class="card mb-5">
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-sm-4 col-form-label">Host</label>
+                        <div class="col-sm-8">
+                            {{primaryDb.host}}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword3" class="col-sm-4 col-form-label">Username</label>
+                        <div class="col-sm-8">
+                            {{primaryDb.username}}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword3" class="col-sm-4 col-form-label">Port</label>
+                        <div class="col-sm-8">
+                            {{primaryDb.port}}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword3" class="col-sm-4 col-form-label">Database Name</label>
+                        <div class="col-sm-8">
+                            {{primaryDb.databasename}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <h4><b>Switch Database</b></h4>
+            <div class="card mb-5">
+                <div class="card-body">
+                    <div class="form-group row" style="justify-content: center">
+                        <btn-loading btnClass="btn-primary btn-rounded btn-block mt-2" (click)="switch()"
+                            [loadingText]="loadingText" [loading]="loading">
+                            SWITCH DB
+                        </btn-loading>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <h4 style="color: blue; font-weight: bold">Secondary Database</h4>
+            <div class="card mb-5">
+                <div class="card-body">
+                    <form name="form" (ngSubmit)="f1.form.valid && update2()" #f1="ngForm" novalidate>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label">Host</label>
+                            <div class="col-sm-8">
+                                {{secondaryDb.host}}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword3" class="col-sm-4 col-form-label">Username</label>
+                            <div class="col-sm-8">
+                                {{secondaryDb.username}}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword3" class="col-sm-4 col-form-label">Port</label>
+                            <div class="col-sm-8">
+                                {{secondaryDb.port}}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword3" class="col-sm-4 col-form-label">Database Name</label>
+                            <div class="col-sm-8">
+                                {{secondaryDb.databasename}}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4 style="font-weight: bold">DB1 Connectivity Settings</h4>
+            <div class="card mb-5">
+                <div class="card-body">
+                    <form name="form" (ngSubmit)="f.form.valid && update1()" #f="ngForm" novalidate>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label">Host</label>
+                            <div class="col-sm-8" *ngIf="!editFlg1">
+                                {{primaryDb.host}}
+                            </div>
+                            <div class="col-sm-8" *ngIf="editFlg1">
+                                <input type="text" class="form-control" [(ngModel)]="primaryDbEdit.host" name="host"
+                                    placeholder="Host/Server" #host="ngModel"
+                                    [ngClass]="{ 'is-invalid': f.submitted && host.invalid }" required>
+                                <div *ngIf="f.submitted && host.invalid" class="invalid-feedback">
+                                    <div *ngIf="host.errors.required">Host is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword3" class="col-sm-4 col-form-label">Username</label>
+                            <div class="col-sm-8" *ngIf="!editFlg1">
+                                {{primaryDb.username}}
+                            </div>
+                            <div class="col-sm-8" *ngIf="editFlg1">
+                                <input type="text" class="form-control" [(ngModel)]="primaryDbEdit.username"
+                                    name="username" placeholder="Username" #username="ngModel"
+                                    [ngClass]="{ 'is-invalid': f.submitted && username.invalid }" required>
+                                <div *ngIf="f.submitted && username.invalid" class="invalid-feedback">
+                                    <div *ngIf="username.errors.required">Username is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row" *ngIf="editFlg1">
+                            <label for="inputPassword3" class="col-sm-4 col-form-label">Password</label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" [(ngModel)]="primaryDbEdit.password"
+                                    name="password" placeholder="Password" #password="ngModel"
+                                    [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" required>
+                                <div *ngIf="f.submitted && password.invalid" class="invalid-feedback">
+                                    <div *ngIf="password.errors.required">Password is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword3" class="col-sm-4 col-form-label">Database Name</label>
+                            <div class="col-sm-8" *ngIf="!editFlg1">
+                                {{primaryDb.databasename}}
+                            </div>
+                            <div class="col-sm-8" *ngIf="editFlg1">
+                                <input type="text" class="form-control" [(ngModel)]="primaryDbEdit.databasename"
+                                    name="databasename" placeholder="Database name" #databasename="ngModel"
+                                    [ngClass]="{ 'is-invalid': f.submitted && databasename.invalid }" required>
+                                <div *ngIf="f.submitted && databasename.invalid" class="invalid-feedback">
+                                    <div *ngIf="databasename.errors.required">Database name is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword3" class="col-sm-4 col-form-label">Port</label>
+                            <div class="col-sm-8" *ngIf="!editFlg1">
+                                {{primaryDb.port}}
+                            </div>
+                            <div class="col-sm-8" *ngIf="editFlg1">
+                                <input type="text" class="form-control" [(ngModel)]="primaryDbEdit.port" name="port"
+                                    placeholder="Port" #port="ngModel"
+                                    [ngClass]="{ 'is-invalid': f.submitted && port.invalid }" required>
+                                <div *ngIf="f.submitted && port.invalid" class="invalid-feedback">
+                                    <div *ngIf="port.errors.required">Port is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row" style="justify-content: center;">
+                            <btn-loading btnClass="btn-success btn-rounded btn-block mt-3" (click)="edit1()"
+                                *ngIf="!editFlg1">Edit</btn-loading>
+                            <btn-loading btnClass="btn-success btn-rounded btn-block mt-3" *ngIf="editFlg1"
+                                [loadingText]="loadingText1" [loading]="loading1">Update</btn-loading>
+                            &nbsp;&nbsp;
+                            <btn-loading btnClass="btn-secondary btn-rounded btn-block mt-3" (click)="cancel1()"
+                                *ngIf="editFlg1">Cancel</btn-loading>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <h4 style="font-weight: bold">DB2 Connectivity Settings</h4>
+            <div class="card mb-5">
+                <div class="card-body">
+                    <form name="form" (ngSubmit)="f1.form.valid && update2()" #f1="ngForm" novalidate>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label">Host</label>
+                            <div class="col-sm-8" *ngIf="!editFlg2">
+                                {{secondaryDb.host}}
+                            </div>
+                            <div class="col-sm-8" *ngIf="editFlg2">
+                                <input type="text" class="form-control" [(ngModel)]="secondaryDbEdit.host" name="host"
+                                    placeholder="Host/Server" #host="ngModel"
+                                    [ngClass]="{ 'is-invalid': f1.submitted && host.invalid }" required>
+                                <div *ngIf="f1.submitted && host.invalid" class="invalid-feedback">
+                                    <div *ngIf="host.errors.required">Host is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword3" class="col-sm-4 col-form-label">Username</label>
+                            <div class="col-sm-8" *ngIf="!editFlg2">
+                                {{secondaryDb.username}}
+                            </div>
+                            <div class="col-sm-8" *ngIf="editFlg2">
+                                <input type="text" class="form-control" [(ngModel)]="secondaryDbEdit.username"
+                                    name="username" placeholder="Username" #username="ngModel"
+                                    [ngClass]="{ 'is-invalid': f1.submitted && username.invalid }" required>
+                                <div *ngIf="f1.submitted && username.invalid" class="invalid-feedback">
+                                    <div *ngIf="username.errors.required">Username is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row" *ngIf="editFlg2">
+                            <label for="inputPassword3" class="col-sm-4 col-form-label">Password</label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" [(ngModel)]="secondaryDbEdit.password"
+                                    name="password" placeholder="Password" #password="ngModel"
+                                    [ngClass]="{ 'is-invalid': f1.submitted && password.invalid }" required>
+                                <div *ngIf="f1.submitted && password.invalid" class="invalid-feedback">
+                                    <div *ngIf="password.errors.required">Password is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword3" class="col-sm-4 col-form-label">Database Name</label>
+                            <div class="col-sm-8" *ngIf="!editFlg2">
+                                {{secondaryDb.databasename}}
+                            </div>
+                            <div class="col-sm-8" *ngIf="editFlg2">
+                                <input type="text" class="form-control" [(ngModel)]="secondaryDbEdit.databasename"
+                                    name="databasename" placeholder="Database name" #databasename="ngModel"
+                                    [ngClass]="{ 'is-invalid': f1.submitted && databasename.invalid }" required>
+                                <div *ngIf="f1.submitted && databasename.invalid" class="invalid-feedback">
+                                    <div *ngIf="databasename.errors.required">Database name is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="inputPassword3" class="col-sm-4 col-form-label">Port</label>
+                            <div class="col-sm-8" *ngIf="!editFlg2">
+                                {{secondaryDb.port}}
+                            </div>
+                            <div class="col-sm-8" *ngIf="editFlg2">
+                                <input type="text" class="form-control" [(ngModel)]="secondaryDbEdit.port" name="port"
+                                    placeholder="Port" #port="ngModel"
+                                    [ngClass]="{ 'is-invalid': f1.submitted && port.invalid }" required>
+                                <div *ngIf="f1.submitted && port.invalid" class="invalid-feedback">
+                                    <div *ngIf="port.errors.required">Port is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row" style="justify-content: center;">
+                            <btn-loading btnClass="btn-success btn-rounded btn-block mt-3" (click)="edit2()"
+                                *ngIf="!editFlg2">Edit</btn-loading>
+                            <btn-loading btnClass="btn-success btn-rounded btn-block mt-3" *ngIf="editFlg2"
+                                [loadingText]="loadingText2" [loading]="loading2">Update</btn-loading>
+                            &nbsp;&nbsp;
+                            <btn-loading btnClass="btn-secondary btn-rounded btn-block mt-3" (click)="cancel2()"
+                                *ngIf="editFlg2">Cancel</btn-loading>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

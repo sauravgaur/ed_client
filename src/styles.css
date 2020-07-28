@@ -1,0 +1,120 @@
+/* You can add global styles to this file, and also import other style files */
+.noRecordFound {
+    color: brown;
+    font-weight: bold;
+    text-align: center;
+    height: 100px;
+}
+
+.btn-primary {
+    background-color: #f2684b !important;
+    color: white !important;
+    border-color: #f2684b !important;
+}
+
+/*table css */
+.ui-treetable .ui-treetable-tbody>tr>td {
+    border: none !important;
+}
+
+.ui-treetable-thead {
+    text-align: left;
+    padding: .9rem 1.2rem;
+    color: rgba(0, 0, 0, 0.54);
+    vertical-align: bottom;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.ui-table .ui-table-tbody>tr>td {
+    border: none !important;
+    color: #47404f;
+}
+
+.ui-table .ui-table-thead>tr>th {
+    border: none !important;
+}
+
+.ui-table .ui-table-caption, .ui-table .ui-table-summary {
+    border: none !important;
+}
+
+.ui-paginator {
+    border: none !important;
+}
+
+.ui-table-thead {
+    text-align: left;
+    padding: .9rem 1.2rem;
+    color: rgba(0, 0, 0, 0.54);
+    vertical-align: bottom;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.ui-table tr:hover {
+    background-color: #d9e7ef !important;
+}
+
+.ui-table th:hover {
+    background-color: #b6d5e9 !important;
+}
+
+.ui-overlaypanel {
+    margin-top: -70px !important;
+    margin-right: 100px !important;
+}
+
+.ui-table .ui-table-thead>tr>th {
+    color: #3b5379 !important;
+    /* background-color: #cde8f9 !important;  */
+}
+
+.ui-table .ui-sortable-column .ui-sortable-column-icon {
+    color: #f2684b !important;
+}
+
+.ui-table .ui-sortable-column:not(.ui-state-highlight):hover .ui-sortable-column-icon {
+    color: #f2684b !important;
+}
+
+.ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-active {
+    background-color: #f2684b !important;
+    color: #ffffff;
+}
+
+.ui-calendar.ui-calendar-w-btn .ui-datepicker-trigger.ui-button {
+    background-color: #3b5379 !important;
+}
+
+.ui-table .ui-table-tbody>tr:nth-child(even) {
+    background-color: #f0f8fd !important;
+}
+
+.ui-table .ui-table-thead>tr>th {
+    color: #3b5379 !important;
+}
+
+.ui-table .ui-sortable-column:not(.ui-state-highlight):hover {
+    color: #3b5379 !important;
+}
+
+.ui-table .ui-sortable-column.ui-state-highlight {
+    background-color: #3b5379 !important;
+    color: #ffffff !important;
+}
+
+.ui-table .ui-sortable-column:not(.ui-state-highlight):hover {
+    /* background-color: #e0e0e0 !important; */
+    color: #3b5379 !important;
+}
+
+h1, h2, h3, h4, h5, h6, .card-title, .text-title {
+    color: #3b5379 !important;
+}
+
+
+.layout-sidebar-large .sidebar-left-secondary .childNav li.nav-item a {
+    font-size: 15px !important;
+}
+/*end */

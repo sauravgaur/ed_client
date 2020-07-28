@@ -1,0 +1,26 @@
+.tooltipClass{
+    top: -30px !important;
+}
+
+.dashboard_header_title{
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 0.1rem;
+    margin-top: 10px;
+    margin-left: 5px;
+    text-align: center;
+}
+
+.dashboard_header{
+    padding: inherit !important;
+    margin: 0px 0px 10px 10px !important;
+}
+
+.header_sub_title{
+    margin-bottom: -1.5rem;
+    text-align: center;
+}
+
+.header_count{
+    margin-left: 30px !important;
+}

@@ -1,0 +1,3 @@
+* Change log *
+1) Change pie chart / table detail for Facility Location
+    Instead of using Facility_from_location -> used Facility_from_system

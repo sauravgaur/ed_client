@@ -1,0 +1,73 @@
+<div class="">
+    <div class="breadcrumb">
+        <h1>Public Domain report</h1>
+        <!-- <ul>
+        <li><a href="#">Data Table</a></li>
+        <li>Filter</li>
+      </ul> -->
+    </div>
+
+    <div class="separator-breadcrumb border-top"></div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="text" pInputText size="50" placeholder="Filter" [(ngModel)]="searchText"
+                    (input)="dt.filterGlobal($event.target.value, 'contains')" class="form-control form-control-rounded"
+                    style="width:auto">
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-4" style="text-align: right">
+            <p-calendar [(ngModel)]="rangeDates" placeholder="Select Date range" selectionMode="range"
+                dateFormat="yy/mm/dd" [readonlyInput]="true" [showIcon]="true" [numberOfMonths]="2" [minDate]="minDate"
+                [readonlyInput]="true" [inputStyle]="{'width': '82%', 'font-size': '13px'}">
+            </p-calendar>
+        </div>
+        <div class="col-md-1" style="margin-top: -5px;">
+            <button type="button" class="btn btn-primary m-1" (click)="searchPatient()">Search</button>
+        </div>
+    </div>
+    <div class="p-grid">
+        <p-table #dt [columns]="cols" [value]="products" styleClass="filterTable" [paginator]="true" [rows]="10"
+            [loading]="showLoading" [scrollable]="true" [responsive]="true" [style]="{width: auto}"
+            (onEditComplete)="updateValue($event)">
+            <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                    <col *ngFor="let col of columns" [style.width]="col.width">
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field" style="border: none;">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                            ariaLabelDesc="Activate to sort in descending order"
+                            ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th>
+                </tr>
+                <tr>
+                    <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                        <input pInputText type="text" size="15"
+                            (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns">
+                        <span class="ui-column-title">{{col.header}}</span>
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr *ngIf="!showLoading">
+                    <td class="noRecordFound" [attr.colspan]="columns.length">
+                        No records found
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
